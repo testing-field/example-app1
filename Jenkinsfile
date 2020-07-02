@@ -14,6 +14,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'MY_SECRET', variable: 'APP_SECRET'), file(credentialsId: 'my-config', variable: 'MY_CONFIG')]) {
                     sh "echo ${env.APP_SECRET}"
                     sh "cat ${env.MY_CONFIG}"
+                    sh "cp ${env.MY_CONFIG} secret.txt"
                 }
             }
         }
