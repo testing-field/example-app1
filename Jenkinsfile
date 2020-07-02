@@ -8,8 +8,8 @@ pipeline {
             }
             steps {
                 sh 'node --version'
-                sh 'sleep 2'
-                sh 'echo "OK" > $HOME/ciao.txt'
+                sh 'npm i'
+                sh './node_modules/.bin/jasmine'
             }
         }
 

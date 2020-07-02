@@ -1,5 +1,9 @@
 FROM node:14-alpine
 
-RUN echo "OK" > $HOME/ciao.txt
+WORKDIR /code
 
+ADD package.json package.json
+RUN npm i --production
+
+ADD index.js index.js
 
