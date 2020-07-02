@@ -20,6 +20,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Push Image') {
+            steps {
+                script {
+                    dockerImage.push()
+                }
+            }
+        }
     }
 }
 
