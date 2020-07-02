@@ -8,6 +8,10 @@ pipeline {
         registryCredentials = 'dockerhub'
     }
 
+    parameters {
+        booleanParam(defaultValue: true, description: 'My User Flag', name: 'userFlag')
+    }
+
     stages {
         stage('Prepare') {
             steps {
