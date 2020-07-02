@@ -14,7 +14,8 @@ pipeline {
                 withCredentials([string(credentialsId: 'MY_SECRET', variable: 'APP_SECRET'), file(credentialsId: 'my-config', variable: 'MY_CONFIG')]) {
                     sh "echo ${env.APP_SECRET}"
                     sh "cat ${env.MY_CONFIG}"
-                    sh "cp ${env.MY_CONFIG} secret.txt"
+                    sh "#cp ${env.MY_CONFIG} secret.txt"
+                    sh "echo commit-${env.GIT_COMMIT} > commit.txt"
                 }
             }
         }
@@ -31,6 +32,9 @@ pipeline {
         }
 
         stage('Build Image') {
+            when {
+                branch 'master'
+            }
             steps {
                 script {
                     dockerImage = docker.build "${registry}:${BUILD_NUMBER}"
@@ -39,6 +43,9 @@ pipeline {
         }
 
         stage('Push Image') {
+            when {
+                branch 'master'
+            }
             steps {
                 script {
                     docker.withRegistry('', registryCredentials) {
