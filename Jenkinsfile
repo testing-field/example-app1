@@ -1,5 +1,7 @@
 pipeline {
-    agent none
+    agent {
+        label 'master'
+    }
 
     environment {
         registry = 'wdalmut/mynode'
@@ -7,6 +9,15 @@ pipeline {
     }
 
     stages {
+        stage('Prepare') {
+            steps {
+                withCredentials([string(credentialsId: 'MY_SECRET', variable: 'APP_SECRET')]) {
+                    sh "echo ${env.APP_SECRET} > /tmp/ciao.txt"
+                    sh "cat /tmp/ciao.txt"
+                }
+            }
+        }
+
         stage('Build') {
             agent {
                 docker { image 'node:14-alpine' }
