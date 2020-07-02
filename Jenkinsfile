@@ -1,6 +1,11 @@
 pipeline {
     agent none
 
+    environment {
+        registry = 'wdalmut/mynode'
+        registryCredentials = 'dockerhub'
+    }
+
     stages {
         stage('Build') {
             agent {
@@ -16,7 +21,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    dockerImage = docker.build "wdalmut/mynode:${BUILD_NUMBER}"
+                    dockerImage = docker.build "${registry}:${BUILD_NUMBER}"
                 }
             }
         }
@@ -24,7 +29,9 @@ pipeline {
         stage('Push Image') {
             steps {
                 script {
-                    dockerImage.push()
+                    docker.withRegistry('', registryCredentials) {
+                        dockerImage.push()
+                    }
                 }
             }
         }
