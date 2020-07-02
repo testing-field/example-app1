@@ -16,7 +16,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    dockerImage = docker.build "wdalmut/mynode:14-alpine"
+                    dockerImage = docker.build "wdalmut/mynode:${BUILD_NUMBER}"
                 }
             }
         }
