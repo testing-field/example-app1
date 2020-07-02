@@ -24,9 +24,6 @@ pipeline {
             agent {
                 docker { image 'node:14-alpine' }
             }
-            when {
-                branch 'master'
-            }
             steps {
                 sh 'node --version'
                 sh 'npm i'
