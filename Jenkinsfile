@@ -15,6 +15,7 @@ pipeline {
                     sh "echo ${env.APP_SECRET}"
                     sh "cat ${env.MY_CONFIG}"
                     sh "cp ${env.MY_CONFIG} secret.txt"
+                    sh "echo commit-${env.GIT_COMMIT} > commit.txt"
                 }
             }
         }
