@@ -11,9 +11,9 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                withCredentials([string(credentialsId: 'MY_SECRET', variable: 'APP_SECRET')]) {
-                    sh "echo ${env.APP_SECRET} > /tmp/ciao.txt"
-                    sh "cat /tmp/ciao.txt"
+                withCredentials([string(credentialsId: 'MY_SECRET', variable: 'APP_SECRET'), file(credentialsId: 'my-config', variable: 'MY_CONFIG')]) {
+                    sh "echo ${env.APP_SECRET}"
+                    sh "cat ${env.MY_CONFIG}"
                 }
             }
         }
